@@ -14,7 +14,7 @@ server = HTTPServer.new(config)
 
 # Mount servlets
 server.mount_proc('/') { |req, resp|
-  resp.body = "Use the URL /records/relay"
+  resp.body = '<a href="/records/destroy">Delete</a> test patient records<br><a href="/records/relay">Create</a> test patient records'
 }
 server.mount_proc('/records/destroy') { |req, resp|
   uri = URI.parse("http://localhost:3001/records/destroy")
