@@ -11,7 +11,6 @@ config.update(:Port => 3000)
 config.update(:DocumentRoot => './')
 server = HTTPServer.new(config)
 
-
 # Mount servlets
 server.mount_proc('/') { |req, resp|
   resp.body = '<a href="/records/destroy">Delete</a> test patient records<br><a href="/records/relay">Create</a> test patient records'
@@ -26,15 +25,6 @@ server.mount_proc('/records/destroy') { |req, resp|
 class RecordRelayServlet < HTTPServlet::AbstractServlet
   def do_GET(request, response)
     Dir.glob('/vagrant/files/*.xml') do |xml_file|
-      #file = File.new('tmp_records_relay.xml', 'w+')
-      #file.write(request.body)
-      #file.close
-      #response.body = request.body
-      #response['Content-type'] = 'text/html'
-      #response = nil
-
-      res = nil
-      req = nil
       url = URI.parse('http://localhost:3001/records/create')
       File.open(xml_file) do |xml|
         req = Net::HTTP::Post::Multipart.new url.path, "content" => UploadIO.new(xml, "text/xml", "temp_scoop_document.xml")
