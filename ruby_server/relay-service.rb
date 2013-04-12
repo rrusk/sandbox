@@ -26,15 +26,14 @@ class RecordRelayServlet < HTTPServlet::AbstractServlet
   def do_GET(request, response)
     Dir.glob('/vagrant/files/*.xml') do |xml_file|
       url = URI.parse('http://localhost:3001/records/create')
+      res = nil
       File.open(xml_file) do |xml|
         req = Net::HTTP::Post::Multipart.new url.path, "content" => UploadIO.new(xml, "text/xml", "temp_scoop_document.xml")
         res = Net::HTTP.start(url.host, url.port) do |http|
           http.request(req)
         end
       end
-
-      #render :text => res.message, :status => res.code
-      response.body=res.message
+      response.body = res.body
     end
     raise HTTPStatus::OK
   end
