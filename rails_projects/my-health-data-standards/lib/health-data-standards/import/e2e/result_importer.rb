@@ -26,7 +26,7 @@ module HealthDataStandards
           @check_for_usable = true               # Pilot tools will set this to false
         end
     
-        # Traverses that HITSP C32 document passed in using XPath and creates an Array of Entry
+        # Traverses the E2E document passed in using XPath and creates an Array of Entry
         # objects based on what it finds                          
         # @param [Nokogiri::XML::Document] doc It is expected that the root node of this document
         #        will have the "cda" namespace registered to "urn:hl7-org:v3"
