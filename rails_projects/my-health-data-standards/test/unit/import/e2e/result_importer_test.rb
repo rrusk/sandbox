@@ -6,9 +6,10 @@ class ResultImporterTest < MiniTest::Unit::TestCase
     doc.root.add_namespace_definition('cda', 'urn:hl7-org:v3')
     pi = HealthDataStandards::Import::E2E::PatientImporter.instance
     patient = pi.parse_e2e(doc)
-    
+    patient.save!
+
     result = patient.results[0]
     assert_equal 'N', result.interpretation['code']
-    assert_equal 'HITSP C80 Observation Status', result.interpretation['codeSystem']
+    assert_equal nil, result.interpretation['codeSystem']
   end
 end

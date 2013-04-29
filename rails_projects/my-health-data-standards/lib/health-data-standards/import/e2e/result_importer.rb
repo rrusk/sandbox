@@ -19,10 +19,12 @@ module HealthDataStandards
           # field :referenceRange, type: String
           # field :interpretation, type: Hash
 
-          def initialize
-          @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.1818.10.2.16.1' and cda:code/@code='11502-2']/cda:entry/cda:observation"
+        def initialize
+          @entry_xpath = "//cda:section[cda:templateId/@root='2.16.840.1.113883.3.1818.10.2.16.1' and cda:code/@code='11502-2']/cda:entry/cda:observation/cda:entryRelationship/cda:organizer/cda:component/cda:observation"
           @code_xpath = "./cda:code"
-          @description_xpath = "./cda:code/cda:originalText/cda:reference[@value] | ./cda:text/cda:reference[@value] "
+          @interpretation_xpath = "./cda:interpretationCode"
+          @description_xpath = "./cda:text/text()"
+          @status_xpath = "./cda:statusCode/@code"
           @check_for_usable = true               # Pilot tools will set this to false
         end
     
@@ -36,6 +38,7 @@ module HealthDataStandards
           result_list = []
           entry_elements = doc.xpath(@entry_xpath)
           entry_elements.each do |entry_element|
+            #print "result: " + entry_element.to_s + "\n"
             result = create_entry(entry_element, id_map)
             if @check_for_usable
               result_list << result if result.usable?
@@ -47,25 +50,53 @@ module HealthDataStandards
         end
         
         def create_entry(entry_element, id_map={})
+          #print "element: " + entry_element.to_s + "\n"
           result = LabResult.new
+          result.interpretation = {}
           extract_codes(entry_element, result)
+          extract_status(entry_element, result)
           extract_dates(entry_element, result)
           extract_value(entry_element, result)
-          extract_description(entry_element, result, id_map)
+          extract_description(entry_element, result)
           extract_interpretation(entry_element, result)
           result
         end
     
         private
         def extract_interpretation(parent_element, result)
-          interpretation_element = parent_element.at_xpath("./cda:interpretationCode")
+          interpretation_element = parent_element.xpath(@interpretation_xpath+"/@code")
           if interpretation_element
-            code = interpretation_element['code']
-            code_system = CodeSystemHelper.code_system_for(interpretation_element['codeSystem'])
-            result.interpretation = {'code' => code, 'codeSystem' => code_system}
+            code = interpretation_element.to_s
+            result.interpretation = {'code' => code, 'codeSystem' => nil}
           end
         end
-    
+
+        def extract_codes(parent_element, entry)
+          code_elements = parent_element.xpath(@code_xpath)
+
+          code_elements.each do |code_element|
+            #print "codes: " + code_element.to_s + "\n"
+            add_code_if_present(code_element, entry)
+          end
+        end
+
+        def add_code_if_present(code_element, entry)
+          if code_element['codeSystemName'] && code_element['code']
+            entry.add_code(code_element['code'], code_element['codeSystemName'])
+            #print "code: " + entry.codes.to_s + "\n"
+          end
+        end
+
+        def extract_description(parent_element, entry)
+          entry.description = parent_element.xpath(@description_xpath)
+        end
+
+        def extract_status(parent_element, entry)
+          status_element = parent_element.at_xpath(@status_xpath)
+          if status_element
+            entry.status =  status_element
+          end
+        end
       end
     end
   end
