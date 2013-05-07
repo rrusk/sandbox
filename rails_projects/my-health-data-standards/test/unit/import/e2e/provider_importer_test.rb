@@ -20,7 +20,7 @@ class ProviderImporterTest < MiniTest::Unit::TestCase
     provider_perf = providers.first
     provider = provider_perf.provider
     refute_nil provider
-    
+    print "provider: " + provider.to_s + "\n"
     assert_equal "Dr.", provider.title
     assert_equal "Stanley", provider.given_name
     assert_equal "Strangelove", provider.family_name
