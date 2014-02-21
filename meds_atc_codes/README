@@ -42,6 +42,5 @@ C03CC01 ETACRYNIC ACID
 Paste the following string into the guideline:
 atc:C03CA01, atc:C03CA02, atc:C03CA04, atc:C03CC01
 
-The final line is for use creating a new Guideline for mydrugref.org.
-
-
+The final line is for use creating a new prescription Guideline at
+http://mydrugref.org/guidelines
