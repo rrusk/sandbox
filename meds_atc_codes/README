@@ -1,0 +1,47 @@
+The Python 'atc_prefix_match.py' script requires two files that can be
+downloaded from the Health Canada Drug Product Database.
+They can be downloaded using a browser from
+http://www.hc-sc.gc.ca/dhp-mps/prodpharma/databasdon/dpd_bdpp_data_extract-eng.php
+The files needed are 'ther.zip' and 'ther_ia.zip'.  They contain 'ther.txt'
+and 'ther_ia.txt', respectively, which should be extracted into the current
+directory.
+
+If curl or wget are installed, the files can also be downloaded this way:
+
+wget http://www.hc-sc.gc.ca/dhp-mps/alt_formats/zip/prodpharma/databasdon/ther.zip
+wget http://www.hc-sc.gc.ca/dhp-mps/alt_formats/zip/prodpharma/databasdon/ther_ia.zip
+
+or
+
+curl -o ther.zip http://www.hc-sc.gc.ca/dhp-mps/alt_formats/zip/prodpharma/databasdon/ther.zip
+curl -o ther_ia.zip http://www.hc-sc.gc.ca/dhp-mps/alt_formats/zip/prodpharma/databasdon/ther_ia.zip
+
+Once downloaded, extract the zip file contents to the current directory using:
+
+unzip ther.zip
+unzip ther_ia.zip
+
+Provided that one of wget or curl is installed, the shell script
+'get_atc_codes.sh' will download and extract the files needed by
+'atc_prefix_match.py'.  Health Canada updates the Drug Product Database
+regularly, so it is best to update these files every few days.
+
+An example usage of atc_prefix_match.py is:
+
+python atc_prefix_match.py c03c
+
+which currently produces the output:
+
+
+Found these ATC codes:
+C03CA01 FUROSEMIDE
+C03CA02 BUMETANIDE
+C03CA04 TORASEMIDE
+C03CC01 ETACRYNIC ACID
+
+Paste the following string into the guideline:
+atc:C03CA01, atc:C03CA02, atc:C03CA04, atc:C03CC01
+
+The final line is for use creating a new Guideline for mydrugref.org.
+
+
