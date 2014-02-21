@@ -1,0 +1,71 @@
+PATH
+  remote: .
+  specs:
+    health-data-standards (1.0.1)
+      builder (~> 3.0.0)
+      erubis (~> 2.6)
+      mongoid (~> 2.4.2)
+      nokogiri (>= 1.4.4)
+      uuid (~> 2.3.4)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    activemodel (3.2.3)
+      activesupport (= 3.2.3)
+      builder (~> 3.0.0)
+    activesupport (3.2.3)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    bson (1.6.2)
+    builder (3.0.0)
+    cane (1.2.0)
+      tailor
+    coderay (1.0.6)
+    erubis (2.7.0)
+    factory_girl (3.1.0)
+      activesupport (>= 3.0.0)
+    i18n (0.6.0)
+    macaddr (1.6.1)
+      systemu (~> 2.5.0)
+    method_source (0.7.1)
+    mongo (1.6.2)
+      bson (~> 1.6.2)
+    mongoid (2.4.11)
+      activemodel (~> 3.1)
+      mongo (<= 1.6.2)
+      tzinfo (~> 0.3.22)
+    multi_json (1.2.0)
+    nokogiri (1.5.5)
+    pry (0.9.8.4)
+      coderay (~> 1.0.5)
+      method_source (~> 0.7.1)
+      slop (>= 2.4.4, < 3)
+    pry-nav (0.2.0)
+      pry (~> 0.9.8.1)
+    rake (0.9.2.2)
+    simplecov (0.6.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.5.3)
+    simplecov-html (0.5.3)
+    slop (2.4.4)
+    systemu (2.5.1)
+    tailor (0.1.5)
+      term-ansicolor (>= 1.0.5)
+    term-ansicolor (1.0.7)
+    tzinfo (0.3.33)
+    uuid (2.3.5)
+      macaddr (~> 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cane
+  factory_girl
+  health-data-standards!
+  pry
+  pry-nav
+  rake
+  simplecov
+  tailor

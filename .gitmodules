@@ -1,0 +1,3 @@
+[submodule "rails_projects/health-data-standards"]
+	path = rails_projects/health-data-standards
+	url = git@github.com:scoophealth/health-data-standards.git
