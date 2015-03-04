@@ -10,7 +10,7 @@ if len(sys.argv) != 1:
 quote = '"'
 delimiter = ','
 
-with open('CMS31_DESC_SHORT_DX.txt', 'rb') as f:
+with open('CMS32_DESC_SHORT_DX.txt', 'rb') as f:
     lines = f.readlines()
     for line in lines:
         result = re.findall(r'(\w+) +(.+)', line)
